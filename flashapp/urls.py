@@ -8,7 +8,8 @@ urlpatterns = [
     path('signup/', views.signup, name="signup"),
     path('', include('django.contrib.auth.urls')),
     path('add-deck', views.add_deck, name="add-deck"),
-    path('deck/<deck>', views.deck, name="deck")
+    path('deck/<deck>', views.deck, name="deck"),
+    path('add-card/<deck>', views.add_card, name="add-card"),
 ]
 
 if settings.DEBUG:

@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.core.exceptions import *
-from .forms import SignUpForm, AddDeckForm
+from .forms import SignUpForm, AddDeckForm, AddCardForm
 from .models import Deck
 from django.contrib.auth import logout
 
@@ -29,6 +29,21 @@ def add_deck(request):
     else:
         form = AddDeckForm()
         return render(request, 'add-deck.html', {'form': form})
+
+def add_card(request, deck):
+    if request.method == 'POST':
+        form = AddCardForm(request.POST)
+        if form.is_valid():
+            card = Card(title=form.cleaned_data.get('title'),
+                        notes=form.cleaned_data.get('notes'),
+                        deck=Deck.objects.get(id=deck))
+            card.save()
+            return redirect('homepage')
+        else:
+            return render(request, 'add-card.html', {'form': form})
+    else:
+        form = AddCardForm()
+        return render(request, 'add-card.html', {'form': form})
 
 def signup(request):
     if request.user.is_authenticated:
