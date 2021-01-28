@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.core.exceptions import *
 from .forms import SignUpForm, AddDeckForm, AddCardForm
-from .models import Deck
+from .models import Deck, Card
 from django.contrib.auth import logout
 
 def homepage(request):
@@ -14,7 +14,8 @@ def homepage(request):
 
 def deck(request, deck):
     current_deck = Deck.objects.get(id=deck)
-    return render(request, 'deck.html', {"deck": current_deck})
+    cards = Card.objects.filter(deck_id=deck)
+    return render(request, 'deck.html', {"deck": current_deck, "cards": cards})
 
 def add_deck(request):
     if request.method == 'POST':

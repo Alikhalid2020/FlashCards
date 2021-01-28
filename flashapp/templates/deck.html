@@ -13,6 +13,14 @@
         <div class="row mt-4">
             <div class="col-1"></div>
             <div class="col-10 d-flex justify-content-left">
+                {% for card in cards %}
+                    <div class="card" style="width: 18rem;">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ card.title }}</h5>
+                        <p class="card-text">{{ card.notes }}</p>
+                      </div>
+                    </div>
+                {% endfor %}
             </div>
             <div class="col-1"></div>
         </div>
