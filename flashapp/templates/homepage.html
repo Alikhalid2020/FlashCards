@@ -2,16 +2,19 @@
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row mt-4">
+        <div class="row mt-5">
             <div class="col-1"></div>
-            <div class="col-10 d-flex justify-content-center">
+            <div class="col-10 d-flex justify-content-left">
                 <h1 class="display-4">Decks</h1>
             </div>
             <div class="col-1"></div>
         </div>
         <div class="row mt-4">
             <div class="col-1"></div>
-            <div class="col-10 d-flex justify-content-center">
+            <div class="col-10 d-flex justify-content-left">
+                {% for deck in decks %}
+                    <a href="#" class="lead text-muted">{{ deck.title }}</a>
+                {% endfor %}
             </div>
             <div class="col-1"></div>
         </div>

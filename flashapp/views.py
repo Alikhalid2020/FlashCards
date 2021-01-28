@@ -5,21 +5,20 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.core.exceptions import *
 from .forms import SignUpForm, AddDeckForm
+from .models import Deck
 from django.contrib.auth import logout
 
 def homepage(request):
-    return render(request, 'homepage.html')
+    decks = Deck.objects.filter(user_id=request.user.id)
+    return render(request, 'homepage.html', {"decks": decks})
 
 def add_deck(request):
     if request.method == 'POST':
         form = AddDeckForm(request.POST)
         if form.is_valid():
-            # project = Project(title=form.cleaned_data.get('title'),
-            #                   photo=form.cleaned_data.get('photo'),
-            #                   description=form.cleaned_data.get('description'),
-            #                   link=form.cleaned_data.get('link'),
-            #                   user=request.user)
-            # project.save()
+            deck = Deck(title=form.cleaned_data.get('title'),
+                        user=request.user)
+            deck.save()
             return redirect('homepage')
         else:
             return render(request, 'add-deck.html', {'form': form})
