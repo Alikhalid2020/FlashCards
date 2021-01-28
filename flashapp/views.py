@@ -12,6 +12,10 @@ def homepage(request):
     decks = Deck.objects.filter(user_id=request.user.id)
     return render(request, 'homepage.html', {"decks": decks})
 
+def deck(request, deck):
+    current_deck = Deck.objects.get(id=deck)
+    return render(request, 'deck.html', {"deck": current_deck})
+
 def add_deck(request):
     if request.method == 'POST':
         form = AddDeckForm(request.POST)
