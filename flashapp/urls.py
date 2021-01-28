@@ -12,6 +12,7 @@ urlpatterns = [
     path('add-card/<deck>', views.add_card, name="add-card"),
     path('delete/<card>',views.delete_view, name="delete"),
     path('update/',views.delete_view, name="update"),
+    path('edit-card/<card>', views.edit_card, name="edit-card") 
 ]
 
 if settings.DEBUG:
