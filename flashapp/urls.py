@@ -10,6 +10,8 @@ urlpatterns = [
     path('add-deck', views.add_deck, name="add-deck"),
     path('deck/<deck>', views.deck, name="deck"),
     path('add-card/<deck>', views.add_card, name="add-card"),
+    path('delete/',views.delete_view, name="delete"),
+    path('update/',views.delete_view, name="update"),
 ]
 
 if settings.DEBUG:
