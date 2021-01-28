@@ -80,13 +80,23 @@ def delete_view(request,card):
     deck=current_card.deck
     current_card.delete()
     return render(request,'deck.html',{'deck':deck})
+
+
+def edit_card(request, card):
+    page_title = "Edit Card"
+    if request.method == 'POST':
+        form = AddCardForm(request.POST)
+        if form.is_valid():
+            card = Card.objects.get(id=card)
+            card.title=form.cleaned_data.get('title')
+            card.notes=form.cleaned_data.get('notes')
+            card.save()
+            return redirect('homepage')
+        else:
+            return render(request, 'add-card.html', {'form': form, "page_title": page_title})
+    else:
+        form = AddCardForm()
+        return render(request, 'add-card.html', {'form': form, "page_title": page_title})
     
 
-def update_view(request,id):
-    context={}       
-    obj= get_object_or_404(Card, id=id)
 
-    if request.method =="POST":
-        obj.delete()
-        return HttpResponseRedirect('homepage')
-    return render (request, 'update_views.html')

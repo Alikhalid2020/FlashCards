@@ -18,9 +18,16 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ card.title }}</h5>
                     <p class="card-text">{{ card.notes }}</p>
-                    <a href="{% url 'delete' card=card.id%}">delete</a> 
+                    <a href="{% url 'delete' card=card.id%}"class="btn btn-primary">delete</a>
+                    <a href="{% url 'edit-card' card=card.id %}" class="btn btn-primary">Edit Card</a> 
                 </div>
             </div>
+            
+                    
+                </div>
+                <div class="col-1"></div>
+            </div>
+        </div>
             {% endfor %}
         </div>
         <div class="col-1"></div>
