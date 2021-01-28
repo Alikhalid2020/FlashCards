@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Deck
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text="Enter a valid email address.")
@@ -12,3 +12,9 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2', 'profile_photo', 'bio')
+
+
+class AddDeckForm(forms.ModelForm):
+	class Meta:
+		model = Deck
+		fields = ('title',)

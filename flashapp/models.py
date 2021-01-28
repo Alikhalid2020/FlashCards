@@ -22,3 +22,6 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
+class Deck(models.Model):
+    title = models.TextField(max_length=150)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
