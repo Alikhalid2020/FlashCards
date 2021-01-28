@@ -7,7 +7,10 @@ from django.core.exceptions import *
 from .forms import SignUpForm, AddDeckForm, AddCardForm
 from .models import Deck, Card
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 
+
+@login_required(login_url=('signup/'))
 def homepage(request):
     decks = Deck.objects.filter(user_id=request.user.id)
     return render(request, 'homepage.html', {"decks": decks})
@@ -70,3 +73,13 @@ def signup(request):
     else:
         form = SignUpForm()
         return render(request, 'registration/signup.html', {'form': form})
+
+
+def delete_view(request,id):
+    context={}       
+    obj= get_object_or_404(Card, id=id)
+
+    if request.method =="POST":
+        obj.delete()
+        return HttpResponseRedirect('homepage')
+    return render (request, 'delete_view.html')
