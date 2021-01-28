@@ -8,14 +8,14 @@
     <ul class="navbar-nav mr-auto">
         {% if not user.is_authenticated %}
         <li class="nav-item">
-            <a class="nav-link" href="">Sign Up</a>
+            <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="">Log In</a>
+            <a class="nav-link" href="{% url 'login' %}">Log In</a>
         </li>
         {% else %}
         <li class="nav-item">
-            <a class="nav-link" href="">Log Out</a>
+            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="">Profile</a>
@@ -23,7 +23,7 @@
         {% endif %}
     </ul>
     {% if user.is_authenticated %}
-    <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search-results' %}">
+    <form class="form-inline my-2 my-lg-0" role="search" action="">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" name="project" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
