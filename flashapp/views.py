@@ -75,11 +75,18 @@ def signup(request):
         return render(request, 'registration/signup.html', {'form': form})
 
 
-def delete_view(request,id):
+def delete_view(request,card):
+    current_card=Card.objects.get(id=card)
+    deck=current_card.deck
+    current_card.delete()
+    return render(request,'deck.html',{'deck':deck})
+    
+
+def update_view(request,id):
     context={}       
     obj= get_object_or_404(Card, id=id)
 
     if request.method =="POST":
         obj.delete()
         return HttpResponseRedirect('homepage')
-    return render (request, 'delete_view.html')
+    return render (request, 'update_views.html')

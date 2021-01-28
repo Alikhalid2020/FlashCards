@@ -1,28 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container-fluid">
-        <div class="row mt-5">
-            <div class="col-1"></div>
-            <div class="col-10 d-flex justify-content-left align-items-center">
-                <h1 class="display-4">{{ deck.title }}</h1>
-                <a href="{% url 'add-card' deck=deck.id %}" class="btn btn-primary my-2 ml-4">Add Card</a>
-            </div>
-            <div class="col-1"></div>
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-1"></div>
+        <div class="col-10 d-flex justify-content-left align-items-center">
+            <h1 class="display-4">{{ deck.title }}</h1>
+            <a href="{% url 'add-card' deck=deck.id %}" class="btn btn-primary my-2 ml-4">Add Card</a>
         </div>
-        <div class="row mt-4">
-            <div class="col-1"></div>
-            <div class="col-10 d-flex justify-content-left">
-                {% for card in cards %}
-                    <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                        <h5 class="card-title">{{ card.title }}</h5>
-                        <p class="card-text">{{ card.notes }}</p>
-                      </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="col-1"></div>
-        </div>
+        <div class="col-1"></div>
     </div>
+    <div class="row mt-4">
+        <div class="col-1"></div>
+        <div class="col-10 d-flex justify-content-left">
+            {% for card in cards %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ card.title }}</h5>
+                    <p class="card-text">{{ card.notes }}</p>
+                    <a href="{% url 'delete' card=card.id%}">delete</a> 
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>
 {% endblock %}
