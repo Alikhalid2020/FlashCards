@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -30,3 +31,6 @@ class Card(models.Model):
     title = models.TextField(max_length=150)
     notes = models.TextField(max_length=300)
     deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(default=timezone.now())
+    date_updated = models.DateTimeField(default=timezone.now())
+

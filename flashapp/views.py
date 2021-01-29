@@ -7,7 +7,10 @@ from django.core.exceptions import *
 from .forms import SignUpForm, AddDeckForm, AddCardForm
 from .models import Deck, Card
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
+@login_required(login_url=('signup/'))
 def homepage(request):
     decks = Deck.objects.filter(user_id=request.user.id)
     return render(request, 'homepage.html', {"decks": decks})
@@ -39,7 +42,7 @@ def add_card(request, deck):
                         notes=form.cleaned_data.get('notes'),
                         deck=Deck.objects.get(id=deck))
             card.save()
-            return redirect('homepage')
+            return redirect('deck', deck=int(deck))
         else:
             return render(request, 'add-card.html', {'form': form})
     else:
@@ -70,3 +73,29 @@ def signup(request):
     else:
         form = SignUpForm()
         return render(request, 'registration/signup.html', {'form': form})
+
+
+def delete_view(request, card):
+    current_card=Card.objects.get(id=card)
+    deck=current_card.deck
+    current_card.delete()
+    return redirect('deck', deck=deck.id)
+
+def edit_card(request, card):
+    page_title = "Edit Card"
+    editting_card = Card.objects.get(id=card)
+
+    if request.method == 'POST':
+        form = AddCardForm(request.POST)
+        if form.is_valid():
+            card = Card.objects.get(id=card)
+            card.title=form.cleaned_data.get('title')
+            card.notes=form.cleaned_data.get('notes')
+            card.date_updated = timezone.now()
+            card.save()
+            return redirect('deck', deck=card.deck.id)
+        else:
+            return render(request, 'add-card.html', {'form': form, "page_title": page_title})
+    else:
+        form = AddCardForm(initial={'title': editting_card.title, 'notes': editting_card.notes})
+        return render(request, 'add-card.html', {'form': form, "page_title": page_title})
