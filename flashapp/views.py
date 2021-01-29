@@ -103,8 +103,8 @@ def edit_card(request, card):
 def search (request):
     if 'card' in request.GET  and request.GET['card']:
         search_term=request.GET.get('card')
-        cards=Card.objects.filter(title__icontains=search_term)
-        return render(request, 'search.html', {'search_term': search_term,'cards': cards})
+        decks=Deck.objects.filter(title__icontains=search_term, user=request.user)
+        return render(request, 'search.html', {'search_term': search_term,'decks': decks})
     else:
         message='No results'
         return render(request, 'search.html', {'message':message})

@@ -9,8 +9,8 @@
           <h1 class="display-4 mt-5">
           Results
           </h1>
-          {% for card in cards %} 
-              <p class="card-text">{{ card.title }}</p>
+          {% for deck in decks %} 
+              <a href="{% url 'deck' deck=deck.id %}" class="card-text">{{ deck.title }}</a>
           {% endfor %}       
         </div>
         <div class="col-1"></div>
