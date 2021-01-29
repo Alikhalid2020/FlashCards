@@ -99,3 +99,14 @@ def edit_card(request, card):
     else:
         form = AddCardForm(initial={'title': editting_card.title, 'notes': editting_card.notes})
         return render(request, 'add-card.html', {'form': form, "page_title": page_title})
+
+def search (request):
+    if 'card' in request.GET  and request.GET['card']:
+        search_term=request.GET.get('card')
+        cards=Card.objects.filter(title__icontains=search_term)
+        return render(request, 'search.html', {'search_term': search_term,'cards': cards})
+    else:
+        message='No results'
+        return render(request, 'search.html', {'message':message})
+
+        

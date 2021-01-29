@@ -81,10 +81,9 @@ WSGI_APPLICATION = 'flashcard.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'flashy',
-        'USER':'morninga',
-        'PASSWORD':'Alikhalid3436',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR /'db.sqlite3',
+        
     }
 }
 
