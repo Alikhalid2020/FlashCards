@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load tz %}
 
 {% block content %}
 <div class="container-fluid">
@@ -12,24 +13,21 @@
     </div>
     <div class="row mt-4">
         <div class="col-1"></div>
-        <div class="col-10 d-flex justify-content-left">
+        <div id="deck-container" class="col-10">
             {% for card in cards %}
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">{{ card.title }}</h5>
                     <p class="card-text">{{ card.notes }}</p>
-                    <a href="{% url 'delete' card=card.id%}"class="btn btn-primary">delete</a>
-                    <a href="{% url 'edit-card' card=card.id %}" class="btn btn-primary">Edit Card</a> 
+                    <a href="{% url 'edit-card' card=card.id %}" class="btn btn-success">Edit Card</a> 
+                    <a href="{% url 'delete' card=card.id%}"class="btn btn-danger">Delete Card</a>
+                    <p class="card-text mt-3">{% localtime on %} Created: {{ card.date_created }} {% endlocaltime %}</p>
+                    <p class="card-text mt-3">{% localtime on %} Last Updated: {{ card.date_updated }} {% endlocaltime %}</p>
                 </div>
             </div>
-            
-                    
-                </div>
-                <div class="col-1"></div>
-            </div>
-        </div>
             {% endfor %}
         </div>
+        <div class="col-1"></div>
         <div class="col-1"></div>
     </div>
 </div>
