@@ -25,7 +25,7 @@ A user should see when the flash card was created and when it was last updated.
 ```
 ##### Navigate into the folder and install requirements  
  ```bash 
-cd into Instagram
+cd into FlashCards
 ```
 ##### Install and activate Virtual  
  ```bash 
